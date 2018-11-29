@@ -1,0 +1,17 @@
+        public static void RunCmd()
+        {
+            Process p = new Process();
+            p.StartInfo.FileName = "cmd.exe";//要执行的程序名称 
+            p.StartInfo.UseShellExecute = false;
+            p.StartInfo.RedirectStandardInput = true;//可能接受来自调用程序的输入信息 
+            p.StartInfo.RedirectStandardOutput = true;//由调用程序获取输出信息 
+            p.StartInfo.CreateNoWindow = false;//不显示程序窗口 
+            p.StartInfo.WorkingDirectory = "本地仓库目录" ;
+            p.Start();//启动程序 
+                      //向CMD窗口发送输入信息： 
+           // p.StandardInput.WriteLine("dir");
+            p.StandardInput.WriteLine("git log --grep=\"001\" --stat"); --可以根据作者以及描述作为过滤条件
+            //获取CMD窗口的输出信息： 
+            p.StandardInput.WriteLine("exit");
+            string sOutput = p.StandardOutput.ReadToEnd();
+        }
